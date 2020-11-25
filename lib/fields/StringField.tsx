@@ -1,28 +1,38 @@
-import { defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
+import { getWidget } from '../theme'
+import { CommonWidgetNames, FiledPropsDefine } from '../types'
 
 export default defineComponent({
   name: 'StringFiled',
-  props: {
-    value: {
-      required: true,
-    },
-    onChange: {
-      type: Function as PropType<(v: any) => void>,
-      required: true,
-    },
-  },
+  props: FiledPropsDefine,
   setup(props) {
     const handleChange = (v: any) => {
-      const value = v.target.value
+      console.log('core value is', v)
+      const value = v
       if (value) {
         props.onChange(value)
       }
     }
 
+    const TextWidgetRef = computed(() => {
+      const widgetRef = getWidget(CommonWidgetNames.TextWidget, props)
+      return widgetRef.value
+    })
+
     return () => {
-      const { value, ...rest } = props
-      console.log('input value', value)
-      return <input value={value as string} {...rest} onChange={handleChange} />
+      const { value, onChange, ...rest } = props
+      console.log('string filed value is', value)
+      const TextWidget = TextWidgetRef.value
+
+      return (
+        <TextWidget
+          value={value}
+          options={{}}
+          {...rest}
+          error={[]}
+          onChange={handleChange}
+        />
+      )
     }
   },
 })

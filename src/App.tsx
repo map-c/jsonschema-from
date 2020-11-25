@@ -5,6 +5,8 @@ import MonacoEditor from './components/MonacoEditor'
 
 import demos from './demo'
 import SchemaForm from '../lib/index'
+import themeDefault from '../lib/theme-default/index'
+import ThemeProvider from '../lib/theme'
 
 // TODO: 在lib中export
 type Schema = any
@@ -107,6 +109,7 @@ export default defineComponent({
     const classesRef = useStyles()
 
     const handleChange = (v: any) => {
+      console.log('app value is', v)
       demo.data = v
       demo.dataCode = toJson(v)
     }
@@ -183,25 +186,14 @@ export default defineComponent({
               </div>
             </div>
             <div class={classes.form}>
-              {/* <ThemeProvider theme={themeDefault}>
+              <ThemeProvider theme={themeDefault}>
                 <SchemaForm
                   schema={demo.schema}
-                  uiSchema={demo.uiSchema || {}}
                   onChange={handleChange}
                   value={demo.data}
                   contextRef={contextRef}
-                  ref={nameRef}
-                  customFormats={customFormat}
-                  customKeywords={customKeywords}
-                  customValidate={demo.customValidate}
                 />
-              </ThemeProvider> */}
-              <SchemaForm
-                schema={demo.schema}
-                onChange={handleChange}
-                contextRef={methodRef}
-                value={demo.data}
-              />
+              </ThemeProvider>
               {/* <button onClick={validateForm}>校 验</button> */}
             </div>
           </div>

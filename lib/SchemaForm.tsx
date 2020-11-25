@@ -38,6 +38,7 @@ export default defineComponent({
   },
   setup(props) {
     const handleChange = (v: any) => {
+      console.log('form value is', v)
       props.onChange(v)
     }
 
@@ -49,6 +50,7 @@ export default defineComponent({
 
     return () => {
       const { schema, value } = props
+      console.log('form value is', value)
       return (
         <SchemaItem
           schema={schema}
