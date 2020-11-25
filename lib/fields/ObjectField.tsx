@@ -33,6 +33,7 @@ export default defineComponent({
       return Object.keys(properties).map((k: string, index: number) => {
         return (
           <SchemaItem
+            key={index}
             schema={properties[k]}
             value={currentValue[k]}
             errorSchema={{}}
